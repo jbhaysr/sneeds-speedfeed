@@ -23,7 +23,7 @@ class Restaurant(models.Model):
     name = models.CharField(max_length=128, null=False)
     address = models.ForeignKey(Address, on_delete=models.CASCADE, null=False)
     photo = models.CharField(max_length=512)
-    rating = models.DecimalField(1,2)
+    rating = models.DecimalField(max_digits=3,decimal_places=2)
     currency = models.CharField(max_length=5, null=False)
 
     def __str__(self):
@@ -35,8 +35,8 @@ class Customer(models.Model):
     """
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=128, null=False)
-    billing_address = models.ForeignKey(Address, on_delete=models.CASCADE)
-    delivery_address = models.ForeignKey(Address, on_delete=models.CASCADE)
+    billing_address = models.ForeignKey(Address, related_name='customer_billing_address', on_delete=models.CASCADE)
+    delivery_address = models.ForeignKey(Address, related_name='customer_delivery_address', on_delete=models.CASCADE)
     photo = models.CharField(max_length=512)
 
     def __str__(self):
@@ -50,8 +50,8 @@ class Contractor(models.Model):
     name = models.CharField(max_length=128, null=False)
     address = models.ForeignKey(Address, on_delete=models.CASCADE, null=False)
     photo = models.CharField(max_length=512, null=False)
-    rating = models.DecimalField(1,2, null=False)
-    ein = models.DecimalField(9, null=False)
+    rating = models.DecimalField(max_digits=3, decimal_places=2, null=False)
+    ein = models.PositiveIntegerField(null=False)
 
     def __str__(self):
         return f"{self.name}, {self.rating}/10"
@@ -65,7 +65,7 @@ class MenuItem(models.Model):
     name = models.CharField(max_length=128, null=False)
     photo = models.CharField(max_length=512)
     description = models.TextField()
-    cost = models.DecimalField(1,2, null=False)
+    cost = models.DecimalField(max_digits=5, decimal_places=2, null=False)
 
     def __str__(self):
         return f"{self.name}, {self.cost} {self.restaurant.currency}"
@@ -77,9 +77,9 @@ class Order(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE, null=False)
     contractor = models.ForeignKey(Contractor, on_delete=models.CASCADE)
-    billing_address = models.ForeignKey(Address, on_delete=models.CASCADE, null=False)
-    delivery_address = models.ForeignKey(Address, on_delete=models.CASCADE, null=False)
-    delivery_fee = models.DecimalField(1,2, null=False)
+    billing_address = models.ForeignKey(Address, related_name='order_billing_address', on_delete=models.CASCADE, null=False)
+    delivery_address = models.ForeignKey(Address, related_name='order_delivery_address', on_delete=models.CASCADE, null=False)
+    delivery_fee = models.DecimalField(max_digits=3, decimal_places=2, null=False)
     currency = models.CharField(max_length=5, null=False)
 
     def __str__(self):
