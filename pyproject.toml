@@ -1,2 +1,2 @@
 [tools.pyright]
-include = ["speedfeedapp"]
+include = ["speedfeed_app"]
