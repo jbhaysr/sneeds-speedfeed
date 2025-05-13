@@ -9,7 +9,7 @@
   <div
     class="d-flex flex-column flex-md-row p-4 gap-4 py-md-5 align-items-center justify-content-center"
   >
-    <div class="list-group">
+    <div class="list-group col-10">
       {% for restaurant in restaurant_list %}
       <a
         href="{% url 'speedfeed_app:restaurant_detail' restaurant.id %}"
@@ -19,6 +19,14 @@
         {% if restaurant.photo %}
         <img
           src="{{ restaurant.photo }}"
+          alt=""
+          width="32"
+          height="32"
+          class="rounded-circle flex-shrink-0"
+        />
+        {% else %}
+        <img
+          src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.qiiELsUnJC8FUYkhUoCobgHaFj%26pid%3DApi&f=1&ipt=24d4cab503213bfc456d7bc8b85246b7a52a66c658339e67f82f8a8afa63be9b"
           alt=""
           width="32"
           height="32"
@@ -34,6 +42,14 @@
         </div>
       </a>
       {% endfor %}
+
+      <a
+        href="{% url 'speedfeed_app:restaurant_create' %}"
+        class="list-group-item list-group-item-action d-flex justify-content-center gap-3 py-3"
+        aria-current="true"
+      >
+        New
+      </a>
     </div>
   </div>
 </ul>

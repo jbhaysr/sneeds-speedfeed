@@ -36,3 +36,7 @@ python manage.py createsuperuser
 ```bash
 python manage.py runserver
 ```
+
+## Restaurant enumeration
+
+You should be able to see and edit a list of restaurants at the root directory '/'.
