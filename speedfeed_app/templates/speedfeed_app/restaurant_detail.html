@@ -3,6 +3,7 @@
 {% block title %}{{ restaurant.name }}{% endblock title %}
 
 {% block content %}
+{% block confirmation %}{% endblock confirmation %}
 <h1>{{ restaurant.name }}</h1>
 {% if restaurant.rating %}
 <p>{{ restaurant.rating }}/10</p>

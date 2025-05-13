@@ -14,6 +14,13 @@ class RestaurantCreateView(CreateView):
     fields = '__all__'
     success_url = reverse_lazy('speedfeed_app:restaurant_list')
 
+class RestaurantDeleteView(DeleteView):
+    """
+    A restaurant delete view.
+    """
+    model = Restaurant
+    success_url = reverse_lazy('speedfeed_app:restaurant_list')
+
 class RestaurantDetailView(DetailView):
     """
     A restaurant detail view.
