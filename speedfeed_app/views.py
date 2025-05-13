@@ -16,7 +16,7 @@ class RestaurantCreateView(CreateView):
 
 class RestaurantDetailView(DetailView):
     """
-    A restaurant list view.
+    A restaurant detail view.
     """
     model = Restaurant
 
@@ -26,3 +26,11 @@ class RestaurantListView(ListView):
     """
     model = Restaurant
     paginate_by = 20
+
+class RestaurantUpdateView(UpdateView):
+    """
+    A restaurant update view.
+    """
+    model = Restaurant
+    fields = '__all__'
+    success_url = reverse_lazy('speedfeed_app:restaurant_list')
