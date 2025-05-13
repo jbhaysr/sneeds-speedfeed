@@ -1,0 +1,14 @@
+{% extends 'base_generic.html' %}
+
+{% block title %}{{ restaurant.name }}{% endblock title %}
+
+{% block content %}
+<h1>{{ restaurant.name }}</h1>
+{% if restaurant.rating %}
+<p>{{ restaurant.rating }}/10</p>
+{% endif %}
+<p>{{ restaurant.address }}</p>
+{% if restaurant.photo %}
+<img src="{{ restaurant.photo }}" alt="{{ restaurant.name }}" />
+{% endif %}
+{% endblock content %}
