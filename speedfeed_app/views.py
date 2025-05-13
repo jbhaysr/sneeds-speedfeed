@@ -14,6 +14,12 @@ class RestaurantCreateView(CreateView):
     fields = '__all__'
     success_url = reverse_lazy('speedfeed_app:restaurant_list')
 
+    def get_form(self, form_class=None):
+        form = super(RestaurantCreateView, self).get_form(form_class)
+        for field in form:
+            field.field.widget.attrs.update({'class' : 'form-control offset-1'})
+        return form
+
 class RestaurantDeleteView(DeleteView):
     """
     A restaurant delete view.
@@ -41,3 +47,9 @@ class RestaurantUpdateView(UpdateView):
     model = Restaurant
     fields = '__all__'
     success_url = reverse_lazy('speedfeed_app:restaurant_list')
+
+    def get_form(self, form_class=None):
+        form = super(RestaurantUpdateView, self).get_form(form_class)
+        for field in form:
+            field.field.widget.attrs.update({'class' : 'form-control offset-1'})
+        return form
