@@ -32,8 +32,20 @@
       </a>
       <ul class="nav nav-pills">
         <li class="nav-item">
-          <a href="#" class="nav-link active" aria-current="page">Home</a>
+          <a href="{% url 'speedfeed_app:restaurant_list' %}" class="nav-link active" aria-current="page">Home</a>
         </li>
+        {% if user.is_authenticated %}
+        <li class="nav-item">
+          <a href="{% url 'account_logout' %}" class="nav-link" aria-current="page">Logout</a>
+        </li>
+        {% else %}
+        <li class="nav-item">
+          <a href="{% url 'account_login' %}" class="nav-link" aria-current="page">Login</a>
+        </li>
+        <li class="nav-item">
+          <a href="{% url 'account_signup' %}" class="nav-link" aria-current="page">Sign Up</a>
+        </li>
+        {% endif %}
       </ul>
     </header>
     <div class="px-2">{% block content %}{% endblock content %}</div>

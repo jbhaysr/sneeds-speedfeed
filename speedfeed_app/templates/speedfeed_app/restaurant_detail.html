@@ -27,6 +27,7 @@
       {% endif %}
       <p>{{ restaurant.address }}</p>
       <p class="lead">
+      {% if user.is_staff %}
       <div class="d-grid gap-2 d-md-flex justify-content-md-start">
         <a href="{% url 'speedfeed_app:restaurant_update' restaurant.id %}" class="btn btn-primary btn-lg px-4 me-md-2">
           Edit
@@ -35,6 +36,7 @@
           Delete
         </a>
       </div>
+      {% endif %}
     </div>
   </div>
 </div>
