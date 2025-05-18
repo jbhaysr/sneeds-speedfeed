@@ -19,9 +19,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
+env = environ.Env()
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = env('SECRET_KEY')
+# Read the .env file
+environ.Env.read_env('.env')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -38,8 +39,27 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'speedfeed_app.apps.SpeedfeedAppConfig'
+
+    'speedfeed_app.apps.SpeedfeedAppConfig',
+
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.oauth2',
 ]
+
+SITE_ID = 1
+
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+)
+
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_VERIFICATION_METHOD = 'email'
+LOGIN_REDIRECT_URL = '/'
+ACCOUNT_LOGOUT_REDIRECT_URL = '/'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -47,9 +67,26 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'allauth.account.middleware.AccountMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+SOCIALACCOUNT_PROVIDERS = {
+    "<oauth2 based provider>": {
+        "APPS": [
+            {
+                "provider_id": "sign-in-with-simplelogin",
+                "name": "Sign In with SimpleLogin",
+                "client_id": env('CLIENT_ID'),
+                "secret": env('OAUTH_SECRET'),
+                "settings": {
+                    "server_url": "https://app.simplelogin.io/oauth2/",
+                }
+            }
+        ]
+    }
+}
 
 ROOT_URLCONF = 'sneeds_speedfeed.urls'
 
@@ -74,10 +111,6 @@ WSGI_APPLICATION = 'sneeds_speedfeed.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 # Initialize environment variables
-env = environ.Env()
-
-# Read the .env file
-environ.Env.read_env('.env')
 
 DATABASES = {
     'default': {
@@ -89,6 +122,9 @@ DATABASES = {
         'PORT': env('DB_PORT'),
     }
 }
+
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = env('SECRET_KEY')
 
 
 # Password validation
