@@ -21,5 +21,6 @@ from django.urls import include, path
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('accounts/', include('allauth.urls')),
     path('', include(('speedfeed_app.urls', 'speedfeed_app'))),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
