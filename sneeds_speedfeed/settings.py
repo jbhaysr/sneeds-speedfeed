@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-    'allauth.socialaccount.providers.oauth2',
+    'allauth.socialaccount.providers.openid_connect',
 ]
 
 SITE_ID = 1
@@ -71,15 +71,18 @@ MIDDLEWARE = [
 ]
 
 SOCIALACCOUNT_PROVIDERS = {
-    "<oauth2 based provider>": {
+    "openid_connect": {
         "APPS": [
             {
-                "provider_id": "sign-in-with-simplelogin",
-                "name": "Sign In with SimpleLogin",
+                "provider_id": "simplelogin",
+                "name": "SimpleLogin",
                 "client_id": env('CLIENT_ID'),
                 "secret": env('OAUTH_SECRET'),
                 "settings": {
-                    "server_url": "https://app.simplelogin.io/oauth2/",
+                    "server_url": "https://app.simplelogin.io/.well-known/openid-configuration",
+                    "auth_params": {
+                      "prompt": "login",
+                    }
                 }
             }
         ]
