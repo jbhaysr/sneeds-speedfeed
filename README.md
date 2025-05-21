@@ -40,3 +40,7 @@ python manage.py runserver
 ## Restaurant enumeration
 
 You should be able to see and edit a list of restaurants at the root directory '/'.
+
+## OAuth Setup
+
+The interface to retrieve SimpleLogin's OAuth API secrets may change in the future.  See SimpleLogin's documentation to get the client_id and secret for the .env file. 
