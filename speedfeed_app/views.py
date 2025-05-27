@@ -66,3 +66,6 @@ class RestaurantUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 class RestaurantViewSet(viewsets.ModelViewSet):
     queryset = Restaurant.objects.all().order_by('-id')
     serializer_class = RestaurantSerializer
+    filterset_fields = ['name', 'address', 'currency']
+    search_fields = ['name', 'address', 'currency']
+    ordering_fields = ['rating', 'name']
