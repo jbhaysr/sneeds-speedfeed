@@ -5,8 +5,9 @@ Views for the SpeedFeed app.
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import CreateView, DeleteView, DetailView, ListView, UpdateView
 from django.urls import reverse_lazy
-from rest_framework import viewsets, permissions
+from rest_framework import viewsets
 from .models import Restaurant
+from .permissions import IsStaffOrReadOnly
 from .serializers import RestaurantSerializer
 
 class RestaurantCreateView(LoginRequiredMixin, CreateView):
@@ -66,3 +67,7 @@ class RestaurantUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 class RestaurantViewSet(viewsets.ModelViewSet):
     queryset = Restaurant.objects.all().order_by('-id')
     serializer_class = RestaurantSerializer
+    permission_classes = [IsStaffOrReadOnly]
+    filterset_fields = ['name', 'address', 'currency']
+    search_fields = ['name', 'address', 'currency']
+    ordering_fields = ['rating', 'name']
