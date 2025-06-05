@@ -130,14 +130,7 @@ WSGI_APPLICATION = 'sneeds_speedfeed.wsgi.application'
 # Initialize environment variables
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',  # or your DB engine
-        'NAME': env('DB_NAME'),
-        'USER': env('DB_USER'),
-        'PASSWORD': env('DB_PASSWORD'),
-        'HOST': env('DB_HOST'),
-        'PORT': env('DB_PORT'),
-    }
+    'default': env.db()
 }
 
 # SECURITY WARNING: keep the secret key used in production secret!
