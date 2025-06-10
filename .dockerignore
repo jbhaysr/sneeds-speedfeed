@@ -4,6 +4,8 @@
     .git
     .gitignore
     
+    .ipynb
+
     # Docker files
     .dockerignore
     Dockerfile
