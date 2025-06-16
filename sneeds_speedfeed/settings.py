@@ -25,10 +25,10 @@ env = environ.Env()
 environ.Env.read_env('.env')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = []
-
+DEBUG = env.bool('DEBUG', default=False)
+SECRET_KEY = env('SECRET_KEY')
+ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=[])
+CSRF_TRUSTED_ORIGINS = env.list('CRSF_TRUSTED_ORIGINS', default=[])
 
 # Application definition
 
@@ -134,10 +134,6 @@ WSGI_APPLICATION = 'sneeds_speedfeed.wsgi.application'
 DATABASES = {
     'default': env.db()
 }
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = env('SECRET_KEY')
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
