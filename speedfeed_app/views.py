@@ -6,7 +6,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import CreateView, DeleteView, DetailView, ListView, UpdateView
 from django.urls import reverse_lazy
 from rest_framework import filters, permissions, status, viewsets
-from rest_framework.view import APIView
+from rest_framework.response import Response
+from rest_framework.views import APIView
 from .models import Restaurant
 from .permissions import IsStaffOrReadOnly
 from .serializers import RestaurantSerializer
