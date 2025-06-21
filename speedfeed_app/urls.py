@@ -10,4 +10,5 @@ urlpatterns = [
     path('<uuid:pk>/delete/', views.RestaurantDeleteView.as_view(), name='restaurant_delete'),
     path('<uuid:pk>/update/', views.RestaurantUpdateView.as_view(), name='restaurant_update'),
     path('create/', views.RestaurantCreateView.as_view(), name='restaurant_create'),
+    path('health/', HealthCheckView.as_view(), name='health_check'),
 ]

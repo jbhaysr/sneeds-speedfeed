@@ -5,10 +5,15 @@ Views for the SpeedFeed app.
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import CreateView, DeleteView, DetailView, ListView, UpdateView
 from django.urls import reverse_lazy
-from rest_framework import filters, permissions, viewsets
+from rest_framework import filters, permissions, status, viewsets
+from rest_framework.view import APIView
 from .models import Restaurant
 from .permissions import IsStaffOrReadOnly
 from .serializers import RestaurantSerializer
+
+class HealthCheckView(APIView):
+    def get(self, request, *args, **kwargs):
+        return Response({"status": "ok"}, status=status.HTTP_200_OK)
 
 class RestaurantCreateView(LoginRequiredMixin, CreateView):
     """
